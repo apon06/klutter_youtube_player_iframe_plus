@@ -1,4 +1,4 @@
-[Eazy To Use](https://github.com/apon06/klutter_youtube_player_iframe_plus)
+Eazy To Use
   
 ## Getting Started  
   
