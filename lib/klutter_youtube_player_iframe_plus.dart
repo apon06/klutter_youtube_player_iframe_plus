@@ -3,6 +3,8 @@ library klutter_youtube_player_iframe_plus;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:klutter_platfrom_verify/klutter_platfrom_verify.dart';
+import 'package:klutter_youtube_player_iframe_plus/pages/android_ios_web.dart';
 import 'package:youtube_player_iframe_plus/youtube_player_iframe_plus.dart';
 
 class YoutubePlayerIframePlusHelp extends StatefulWidget {
@@ -66,61 +68,85 @@ class YoutubePlayerIframePlusHelp extends StatefulWidget {
 
 class _YoutubePlayerIframePlusHelpState
     extends State<YoutubePlayerIframePlusHelp> {
-  convertUrlToId(String url, {bool trimWhitespaces = true}) {
-    if (!url.contains("http") && (url.length == 11)) return url;
-    if (trimWhitespaces) url = url.trim();
-
-    for (var exp in [
-      RegExp(
-          r"^https:\/\/(?:www\.|m\.)?youtube\.com\/watch\?v=([_\-a-zA-Z0-9]{11}).*$"),
-      RegExp(
-          r"^https:\/\/(?:music\.)?youtube\.com\/watch\?v=([_\-a-zA-Z0-9]{11}).*$"),
-      RegExp(
-          r"^https:\/\/(?:www\.|m\.)?youtube\.com\/shorts\/([_\-a-zA-Z0-9]{11}).*$"),
-      RegExp(
-          r"^https:\/\/(?:www\.|m\.)?youtube(?:-nocookie)?\.com\/embed\/([_\-a-zA-Z0-9]{11}).*$"),
-      RegExp(r"^https:\/\/youtu\.be\/([_\-a-zA-Z0-9]{11}).*$")
-    ]) {
-      Match? match = exp.firstMatch(url);
-      if (match != null && match.groupCount >= 1) return match.group(1);
-    }
-
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return YoutubePlayerControllerProvider(
-      controller: YoutubePlayerController(
-        initialVideoId: convertUrlToId(widget.initialVideoId),
-        params: YoutubePlayerParams(
-          startAt: widget.startAt!,
-          endAt: widget.endAt,
-          autoPlay: widget.autoPlay!,
-          showControls: widget.showControls!,
-          showFullscreenButton: widget.showFullscreenButton!,
-          mute: widget.mute!,
-          enableCaption: widget.enableCaption!,
-          enableJavaScript: widget.enableJavaScript!,
-          privacyEnhanced: widget.privacyEnhanced!,
-          useHybridComposition: widget.useHybridComposition!,
-          playsInline: widget.playsInline!,
-          showVideoAnnotations: widget.showVideoAnnotations!,
-          desktopMode: widget.desktopMode!,
-          strictRelatedVideos: widget.strictRelatedVideos!,
-          loop: widget.loop!,
-          playlist: widget.playlist!,
-          interfaceLanguage: widget.interfaceLanguage!,
-          origin: widget.origin!,
-          captionLanguage: widget.captionLanguage!,
-          color: widget.color!,
-        ),
-      ),
-      child: YoutubePlayerIFramePlus(
+    if (isMobile()) {
+      AndroidIosWeb(
+        initialVideoId: widget.initialVideoId,
+        startAt: widget.startAt!,
+        endAt: widget.endAt,
+        autoPlay: widget.autoPlay!,
+        showControls: widget.showControls!,
+        showFullscreenButton: widget.showFullscreenButton!,
+        mute: widget.mute!,
+        enableCaption: widget.enableCaption!,
+        enableJavaScript: widget.enableJavaScript!,
+        privacyEnhanced: widget.privacyEnhanced!,
+        useHybridComposition: widget.useHybridComposition!,
+        playsInline: widget.playsInline!,
+        showVideoAnnotations: widget.showVideoAnnotations!,
+        desktopMode: widget.desktopMode!,
+        strictRelatedVideos: widget.strictRelatedVideos!,
+        loop: widget.loop!,
+        playlist: widget.playlist!,
+        interfaceLanguage: widget.interfaceLanguage!,
+        origin: widget.origin!,
+        captionLanguage: widget.captionLanguage!,
+        color: widget.color!,
         aspectRatio: widget.aspectRatio,
         controller: widget.controller,
         gestureRecognizers: widget.gestureRecognizers,
-      ),
-    );
+      );
+    }
+    if (isWeb()) {
+      return AndroidIosWeb(
+        initialVideoId: widget.initialVideoId,
+        startAt: widget.startAt!,
+        endAt: widget.endAt,
+        autoPlay: widget.autoPlay!,
+        showControls: widget.showControls!,
+        showFullscreenButton: widget.showFullscreenButton!,
+        mute: widget.mute!,
+        enableCaption: widget.enableCaption!,
+        enableJavaScript: widget.enableJavaScript!,
+        privacyEnhanced: widget.privacyEnhanced!,
+        useHybridComposition: widget.useHybridComposition!,
+        playsInline: widget.playsInline!,
+        showVideoAnnotations: widget.showVideoAnnotations!,
+        desktopMode: widget.desktopMode!,
+        strictRelatedVideos: widget.strictRelatedVideos!,
+        loop: widget.loop!,
+        playlist: widget.playlist!,
+        interfaceLanguage: widget.interfaceLanguage!,
+        origin: widget.origin!,
+        captionLanguage: widget.captionLanguage!,
+        color: widget.color!,
+        aspectRatio: widget.aspectRatio,
+        controller: widget.controller,
+        gestureRecognizers: widget.gestureRecognizers,
+      );
+    }
+    if (isLinux()) {
+      return const Scaffold(
+        body: Center(
+          child: Text('Linux Not Work'),
+        ),
+      );
+    }
+    if (isMacOS()) {
+      return const Scaffold(
+        body: Center(
+          child: Text('MacOs Not Work'),
+        ),
+      );
+    }
+    if (isWindows()) {
+      return const Scaffold(
+        body: Center(
+          child: Text('Windows Not Work'),
+        ),
+      );
+    }
+    return const Text('data');
   }
 }

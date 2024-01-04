@@ -1,6 +1,6 @@
 name: klutter_youtube_player_iframe_plus
 description: Make Youtube Player Eazy
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/apon06/klutter_youtube_player_iframe_plus
 
 environment:
@@ -10,7 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  youtube_player_iframe_plus: ^2.3.2
+  # Run Help This Package In Android , Ios and Web 
+  youtube_player_iframe_plus: 
+  # Help By Platfrom Verify Time And Make This Package Me
+  klutter_platfrom_verify: 
 
 dev_dependencies:
   flutter_test:
